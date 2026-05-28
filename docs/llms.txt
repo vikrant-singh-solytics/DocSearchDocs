@@ -49,4 +49,4 @@ All AI logic lives in the feature runner (`run_query.py`).
 
 ## Docs
 
-Full design docs: https://nuva-org.github.io/DocSearch/
+Full design docs: https://vikrant-singh-solytics.github.io/DocSearchDocs/

@@ -1,8 +1,8 @@
 site_name: DocSearch — Design Docs
 site_description: Architecture and feature-creation contract for the DocSearch AI document intelligence platform.
-site_url: https://nuva-org.github.io/DocSearch/
-repo_url: https://github.com/Nuva-Org/DocSearch
-repo_name: Nuva-Org/DocSearch
+site_url: https://vikrant-singh-solytics.github.io/DocSearchDocs/
+repo_url: https://github.com/vikrant-singh-solytics/DocSearchDocs
+repo_name: vikrant-singh-solytics/DocSearchDocs
 edit_uri: edit/main/docs/
 
 theme:

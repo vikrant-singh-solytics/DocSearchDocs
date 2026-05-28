@@ -1,0 +1,52 @@
+# DocSearch LLM Manifest
+
+This file provides a structured overview of the DocSearch codebase for LLM consumption.
+
+## Project
+
+DocSearch is an AI-powered document intelligence platform built on Django 4.2 + DRF 3.14.
+It provides RAG-based document chat, assessment, regulatory compliance mapping, and NLP-to-structured-query features.
+Backend: PostgreSQL + Milvus (vector) + Redis + AWS Bedrock / OpenAI / Anthropic.
+
+## Key abstractions
+
+- `my_llm()` (LLM/Providers.py) — single LLM factory, returns a LangChain BaseChatModel
+- `my_embedding()` (Embeddings/Providers.py) — embedding factory
+- `VectorDbManager` (VectorDB/VectorDB.py) — Milvus abstraction
+- `create_collection_name(header, TypeOfSearch.X)` — deterministic multi-tenant collection naming
+- `TypeOfSearch` (Constants/constants.py) — namespaces Milvus collections per feature
+- `flatten_serializer_errors()` — consistent 400 response format
+- `IsCompanyAPIKeyValid` / `IsAdminAPIKeyValid` (Application/auth.py) — API key auth
+
+## Features and entry points
+
+| Feature | Entry point |
+|---|---|
+| Document Chat (RAG) | Query/run_query.py::answer_docs() |
+| Document Assessment V1 | DocAssess/query.py::assess_doc() |
+| Document Assessment V2 | DocAssess/assess_v2.py::assess_doc_v2() |
+| Regulatory Mapping V1 | RegulatoryMapping/run_query.py::regulatory_mapping_query() |
+| Regulatory Mapping V2 | RegulatoryMappingV2/run_query.py (full pipeline) |
+| AutoTag | AutoTag/run_query.py::generate_tags() |
+| SuggestFields | SuggestFields/run_query.py (direct + RAG modes) |
+| Text-to-SQL | TextToSQL/Utilities.py::generate_sql_query() |
+| Text-to-Filter | TextToFilter/run_query.py::text_to_filter() |
+| Text-to-Workflow | TextToWorkflow/run_query.py::generate_workflow_json() |
+
+## Adding a new feature (summary)
+
+1. Add `TypeOfSearch.MY_FEATURE` in `Constants/constants.py`
+2. Create `Prompts/MyFeature.py`
+3. Create `MyFeature/run_query.py` — use `my_llm()` and `VectorDbManager`
+4. Create `Application/serializer/MyFeature.py`
+5. Create `Application/views/MyFeature.py` with `permission_classes = [IsCompanyAPIKeyValid]`
+6. Register URL in `Application/urls.py`
+
+## Architecture rule
+
+No view or serializer may call `my_llm()`, import `pymilvus`, or access the ORM for AI operations.
+All AI logic lives in the feature runner (`run_query.py`).
+
+## Docs
+
+Full design docs: https://nuva-org.github.io/DocSearch/

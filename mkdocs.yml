@@ -1,0 +1,102 @@
+site_name: DocSearch — Design Docs
+site_description: Architecture and feature-creation contract for the DocSearch AI document intelligence platform.
+site_url: https://nuva-org.github.io/DocSearch/
+repo_url: https://github.com/Nuva-Org/DocSearch
+repo_name: Nuva-Org/DocSearch
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/logo.jpg
+  favicon: assets/logo.jpg
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji
+
+plugins:
+  - search
+
+extra:
+  generator: false
+
+extra_css:
+  - assets/extra.css
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Request lifecycle: architecture/request-lifecycle.md
+      - Data layer (Models): architecture/data-layer.md
+      - LLM & Embeddings: architecture/llm-and-embeddings.md
+      - VectorDB (Milvus): architecture/vectordb.md
+      - Async & deployment: architecture/async-and-deployment.md
+      - Configuration: architecture/configuration.md
+  - Feature Guide:
+      - The contract: feature-guide/contract.md
+      - Worked example: feature-guide/walkthrough.md
+      - Good practices: feature-guide/good-practices.md
+      - Review checklist: feature-guide/review-checklist.md
+  - Features:
+      - Overview: features/overview.md
+      - Document Chat (RAG): features/document-chat.md
+      - Document Assessment: features/document-assessment.md
+      - Regulatory Mapping: features/regulatory-mapping.md
+      - AutoTag: features/autotag.md
+      - SuggestFields: features/suggest-fields.md
+      - Text Intelligence (SQL / Filter / Workflow): features/text-intelligence.md
+  - Reference:
+      - Key files: reference/key-files.md
+      - Conventions: reference/conventions.md
+  - LLM manifest: llms.txt
